@@ -20,8 +20,8 @@ footer{color:#829bb5;font-size:.8rem;text-align:center}.copy-inline{padding:7px 
 <header><div class="brand">MIAWX LOGISTICS DIV</div><div style="width:150px"><select id="language" aria-label="Language"><option value="en">en English</option><option value="es">🇪🇸 Español</option></select></div></header>
 <main><div class="hero"><span class="pill">EVE ONLINE · JUMP FREIGHTER</span><h1>MIAWX LOGISTICS DIV</h1><div class="subtitle" data-i="tagline">Professional Jump Freighter Services · Fast, Secure & Reliable Transportation</div></div>
 <div class="layout"><section class="card"><h2 data-i="calculator">Courier Price Calculator</h2>
-<div class="grid"><div class="field"><label data-i="origin">Pickup location</label><select id="origin"><option value="jita">Jita IV – Moon 4 (Caldari Navy Assembly Plant)</option><option value="xz">EIMJ-M - LEGION PENTHOUSE</option></select></div>
-<div class="field"><label data-i="destination">Destination</label><select id="destination"><option value="xz">EIMJ-M - LEGION PENTHOUSE</option><option value="jita">Jita IV – Moon 4 (Caldari Navy Assembly Plant)</option></select></div></div>
+<div class="grid"><div class="field"><label data-i="origin">Pickup location</label><select id="origin"></select></div>
+<div class="field"><label data-i="destination">Destination</label><select id="destination"></select></div></div>
 <div class="grid"><div class="field"><label data-i="volume">Cargo volume (m³)</label><input id="volume" type="number" min="0" max="340000" step="1" value="100000"></div>
 <div class="field"><label data-i="collateral">Collateral (ISK)</label><input id="collateral" type="number" min="0" max="10000000000" step="1" value="5000000000"></div></div>
 
@@ -32,37 +32,66 @@ footer{color:#829bb5;font-size:.8rem;text-align:center}.copy-inline{padding:7px 
 <div class="detail"><span data-i="collateralLabel">Collateral</span><span class="copy-value"><span id="collateralDisplay">—</span><button type="button" class="copy-inline" data-copy="collateral" data-i="copyValue">Copy</button></span></div><div class="detail"><span data-i="contracttype">Contract type</span><span>Courier</span></div>
 <div class="detail"><span data-i="expiry">Contract expiration</span><span data-i="three">3 days</span></div>
 <div class="detail"><span data-i="completion">Time to complete</span><span id="completion">7 days</span></div>
-<div class="detail" style="display:none"><span data-i="rate">Rate per m³</span><span id="rate">—</span></div>
+<div class="detail"><span data-i="rate">Rate per m³</span><span id="rate">—</span></div>
 
 <div class="detail"><span data-i="transport">Transport fee</span><span class="copy-value"><span id="transport">—</span></span></div>
-<div class="detail" style="display:none"><span data-i="fee">Collateral surcharge (1%)</span><span id="surcharge">—</span></div>
-<p class="note" data-i="instructions">Create the courier contract inside EVE Online, addressed to MIAWX LOGISTICS DIV. Delivery time starts when the contract is accepted. Use EIMJ-M - LEGION PENTHOUSE as the delivery or pickup structure.</p></section></div>
-<section class="card section"><h2 data-i="terms">Service conditions</h2><p class="note" data-i="termsbody">Standard: 5–7 days. Express: 1–2 days. Rush: less than 12 hours. Delivery prices are provisional until the rates for each service are confirmed. Contract availability: 3 days. Pricing: 1,100 ISK/m³ + 1% collateral, with no minimum charge. This is a preview; no contract is created on this website.</p></section>
+<div class="detail"><span id="feeLabel">Collateral surcharge</span><span id="surcharge">—</span></div>
+<p class="note" id="instructions"></p></section></div>
+<section class="card section"><h2 data-i="terms">Service conditions</h2><p class="note" data-i="termsbody">Contract expiration is 3 days. Time to complete is 7 days. This website does not create contracts.</p></section>
 <section class="card section"><h2 data-i="customTitle">Other pickup or delivery locations</h2><p class="note" data-i="customText">Need a shipment from or to another location? Send an in-game private message (DM) to <strong>MIAWX LOGISTICS DIV</strong> with the pickup location, destination, cargo volume and collateral. We will discuss availability and provide a custom quote.</p></section>
 </main><footer>MIAWX LOGISTICS DIV · Independent EVE Online courier service · Not affiliated with CCP Games</footer>
+<script src="./routes.js"></script>
 <script>
 const dict={
-en:{copyValue:"Copy",collateralLabel:"Collateral",enCopyDone:"Copied!",customTitle:"Other pickup or delivery locations",customText:"Need a shipment from or to another location? Send an in-game direct message (DM) to MIAWX LOGISTICS DIV with the pickup location, destination, cargo volume and collateral. We will check availability and provide a custom quote.",availability:"Courier availability",online:"● Accepting contracts",offline:"● Service temporarily unavailable — please do not send contracts.",pause:"Pause courier service",resume:"Resume courier service",ownercontrol:"Owner: temporarily suspend service",adminnote:"Owner control (local preview only): changes are saved in this browser, not shared with visitors on other devices. A published website needs a private admin login and shared storage to update the public status.",tagline:"Professional Jump Freighter Services · Fast, Secure & Reliable Transportation",calculator:"Courier Price Calculator",origin:"Pickup location",destination:"Destination",volume:"Cargo volume (m³)",collateral:"Collateral (ISK)",service:"Delivery service",limits:"Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.",quote:"Your shipping quote",reward:"Courier contract reward",recipient:"Contract to",contracttype:"Contract type",expiry:"Contract expiration",three:"3 days",completion:"Time to complete",fee:"Collateral surcharge (1%)",rate:"Rate per m³",minimum:"Minimum transport fee",transport:"Transport fee",copy:"Copy contract details",instructions:"Create the courier contract inside EVE Online, addressed to MIAWX LOGISTICS DIV. Delivery time starts when the contract is accepted. Use EIMJ-M - LEGION PENTHOUSE as the delivery or pickup structure.",terms:"Service conditions",termsbody:"Single courier service: 1,100 ISK/m³ plus 1% of collateral, with no minimum fee. Contract expiration: 3 days; in-game time to complete: 7 days. This website does not create contracts.",same:"Pickup and destination must be different.",invalid:"Enter valid non-negative values.",over:"Maximum: 340,000 m³ and 10 billion ISK collateral.",copied:"Contract details copied!",standard:"Standard — 5–7 days",express:"Express — 1–2 days",rush:"Rush — less than 12 hours",day:"7 days",hour:"7 days",unconfirmed:"EIMJ-M - LEGION PENTHOUSE"},
-es:{copyValue:"Copiar",collateralLabel:"Collateral",enCopyDone:"¡Copiado!",customTitle:"Transportes desde otras ubicaciones",customText:"¿Quieres que transporte tu carga desde otro lugar o hacia otro destino? Envíame un mensaje privado (MD) dentro de EVE Online a MIAWX LOGISTICS DIV con el origen, destino, volumen y collateral. Consultaremos la disponibilidad y te daré un presupuesto personalizado.",availability:"Disponibilidad del courier",online:"● Aceptando contratos",offline:"● Servicio temporalmente no disponible. No envíes contratos.",pause:"Pausar servicio de courier",resume:"Reactivar servicio de courier",ownercontrol:"Propietario: suspender temporalmente el servicio",adminnote:"Control del propietario (solo prueba local): los cambios se guardan en este navegador y no se comparten con otros visitantes. La web publicada necesitará acceso privado de administrador y almacenamiento compartido para actualizar el estado público.",tagline:"Servicios profesionales de Jump Freighter · Transporte rápido, seguro y fiable",calculator:"Calculadora de tarifas",origin:"Punto de recogida",destination:"Destino",volume:"Volumen de carga (m³)",collateral:"Collateral (ISK)",service:"Modalidad de entrega",limits:"Límites por contrato: 340.000 m³ y 10.000 millones de ISK de collateral. No hay tarifa mínima de transporte.",quote:"Presupuesto de transporte",reward:"Recompensa del contrato",recipient:"Contrato a nombre de",contracttype:"Tipo de contrato",expiry:"Caducidad del contrato",three:"3 días",completion:"Plazo de entrega",fee:"Recargo por collateral (1 %)",rate:"Precio por m³",minimum:"Tarifa mínima de transporte",transport:"Precio del transporte",copy:"Copiar datos del contrato",instructions:"Crea el contrato de tipo Courier dentro de EVE Online a nombre de MIAWX LOGISTICS DIV. El plazo de entrega comienza al aceptar el contrato. Utiliza EIMJ-M - LEGION PENTHOUSE como estructura de origen o destino.",terms:"Condiciones del servicio",termsbody:"Servicio de transporte único: 1.100 ISK/m³ más el 1 % del collateral, sin tarifa mínima. Caducidad del contrato: 3 días; tiempo para completar en EVE Online: 7 días. Esta web no crea contratos.",same:"El origen y el destino deben ser diferentes.",invalid:"Introduce valores válidos no negativos.",over:"Máximo: 340.000 m³ y 10.000 millones de ISK de collateral.",copied:"¡Datos del contrato copiados!",standard:"Estándar — 5–7 días",express:"Exprés — 1–2 días",rush:"Rush — menos de 12 horas",day:"7 días",hour:"7 días",unconfirmed:"EIMJ-M - LEGION PENTHOUSE"}
+en:{copyValue:"Copy",collateralLabel:"Collateral",enCopyDone:"Copied!",customTitle:"Other pickup or delivery locations",customText:"Need a shipment from or to another location? Send an in-game direct message (DM) to MIAWX LOGISTICS DIV with the pickup location, destination, cargo volume and collateral. We will check availability and provide a custom quote.",availability:"Courier availability",online:"● Accepting contracts",offline:"● Service temporarily unavailable — please do not send contracts.",pause:"Pause courier service",resume:"Resume courier service",ownercontrol:"Owner: temporarily suspend service",adminnote:"Owner control (local preview only): changes are saved in this browser, not shared with visitors on other devices. A published website needs a private admin login and shared storage to update the public status.",tagline:"Professional Jump Freighter Services · Fast, Secure & Reliable Transportation",calculator:"Courier Price Calculator",origin:"Pickup location",destination:"Destination",volume:"Cargo volume (m³)",collateral:"Collateral (ISK)",service:"Delivery service",limits:"Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.",quote:"Your shipping quote",reward:"Courier contract reward",recipient:"Contract to",contracttype:"Contract type",expiry:"Contract expiration",three:"3 days",completion:"Time to complete",fee:"Collateral surcharge",rate:"Rate per m³",minimum:"Minimum transport fee",transport:"Transport fee",copy:"Copy contract details",instructions:"Create the courier contract inside EVE Online, addressed to MIAWX LOGISTICS DIV. Pickup: {from}. Delivery: {to}. Delivery time starts when the contract is accepted.",terms:"Service conditions",termsbody:"The rate depends on the route. Contract expiration is 3 days. Time to complete in EVE Online is 7 days. This website does not create contracts.",routeUnavailable:"This route is unavailable.",invalid:"Enter valid non-negative values.",over:"Maximum: 340,000 m³ and 10 billion ISK collateral.",copied:"Contract details copied!",standard:"Standard — 5–7 days",express:"Express — 1–2 days",rush:"Rush — less than 12 hours",day:"7 days",hour:"7 days"},
+es:{copyValue:"Copiar",collateralLabel:"Collateral",enCopyDone:"¡Copiado!",customTitle:"Transportes desde otras ubicaciones",customText:"¿Quieres que transporte tu carga desde otro lugar o hacia otro destino? Envíame un mensaje privado (MD) dentro de EVE Online a MIAWX LOGISTICS DIV con el origen, destino, volumen y collateral. Consultaremos la disponibilidad y te daré un presupuesto personalizado.",availability:"Disponibilidad del courier",online:"● Aceptando contratos",offline:"● Servicio temporalmente no disponible. No envíes contratos.",pause:"Pausar servicio de courier",resume:"Reactivar servicio de courier",ownercontrol:"Propietario: suspender temporalmente el servicio",adminnote:"Control del propietario (solo prueba local): los cambios se guardan en este navegador y no se comparten con otros visitantes. La web publicada necesitará acceso privado de administrador y almacenamiento compartido para actualizar el estado público.",tagline:"Servicios profesionales de Jump Freighter · Transporte rápido, seguro y fiable",calculator:"Calculadora de tarifas",origin:"Punto de recogida",destination:"Destino",volume:"Volumen de carga (m³)",collateral:"Collateral (ISK)",service:"Modalidad de entrega",limits:"Límites por contrato: 340.000 m³ y 10.000 millones de ISK de collateral. No hay tarifa mínima de transporte.",quote:"Presupuesto de transporte",reward:"Recompensa del contrato",recipient:"Contrato a nombre de",contracttype:"Tipo de contrato",expiry:"Caducidad del contrato",three:"3 días",completion:"Plazo de entrega",fee:"Recargo por collateral",rate:"Precio por m³",minimum:"Tarifa mínima de transporte",transport:"Precio del transporte",copy:"Copiar datos del contrato",instructions:"Crea el contrato de tipo Courier dentro de EVE Online a nombre de MIAWX LOGISTICS DIV. Recogida: {from}. Entrega: {to}. El plazo de entrega comienza al aceptar el contrato.",terms:"Condiciones del servicio",termsbody:"La tarifa depende de la ruta. El contrato caduca en 3 días. El plazo para completarlo en EVE Online es de 7 días. Esta web no crea contratos.",routeUnavailable:"Esta ruta no está disponible.",invalid:"Introduce valores válidos no negativos.",over:"Máximo: 340.000 m³ y 10.000 millones de ISK de collateral.",copied:"¡Datos del contrato copiados!",standard:"Estándar — 5–7 días",express:"Exprés — 1–2 días",rush:"Rush — menos de 12 horas",day:"7 días",hour:"7 días"}
 };
 
 const $=id=>document.getElementById(id);const fmt=n=>Math.round(n).toLocaleString("en-US")+" ISK";let quote=null;
+function fillLocations(select, ids) {
+  const previous = select.value;
+  select.replaceChildren(...Array.from(ids, id => new Option(locations[id], id)));
+  if (Array.from(select.options).some(option => option.value === previous)) {
+    select.value = previous;
+  }
+}
+
+function updateDestinations() {
+  fillLocations($("destination"), routesByOrigin.get($("origin").value).keys());
+}
+
 function render(){let lang=$("language").value,t=dict[lang];document.documentElement.lang=lang;document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t[e.dataset.i]);
-$("origin").options[1].text=t.unconfirmed;$("destination").options[0].text=t.unconfirmed;
+const from = $("origin").value;
+const to = $("destination").value;
+const route = routesByOrigin.get(from)?.get(to);
+$("instructions").textContent = route ? t.instructions
+  .replace("{from}", () => locations[from])
+  .replace("{to}", () => locations[to]) : "";
+$("feeLabel").textContent = route
+  ? t.fee + " (" + new Intl.NumberFormat(lang, {style: "percent", maximumFractionDigits: 3}).format(route.collateralRate) + ")"
+  : t.fee;
 
 let v=Number($("volume").value),c=Number($("collateral").value),err="";
 if($("volume").value===""||$("collateral").value===""||!Number.isFinite(v)||!Number.isFinite(c)||v<0||c<0)err=t.invalid;
 else if(v>340000||c>10000000000)err=t.over;
-else if($("origin").value===$("destination").value)err=t.same;
+else if(!route)err=t.routeUnavailable;
 $("error").textContent=err;
 if(err){$("collateralDisplay").textContent="—";document.querySelectorAll("[data-copy]").forEach(b=>b.disabled=b.dataset.copy!=="recipient");$("price").textContent="—";$("surcharge").textContent="—";$("rate").textContent="—";$("transport").textContent="—";quote=null;return}
-const rate=1100;
-let transport=v*rate,extra=c*.01,total=transport+extra;
+const rate = route.iskPerM3;
+const transport = v * rate;
+const extra = c * route.collateralRate;
+const total = transport + extra;
 $("rate").textContent=fmt(rate)+"/m³";$("transport").textContent=fmt(transport);
 $("collateralDisplay").textContent=fmt(c);document.querySelectorAll("[data-copy]").forEach(b=>b.disabled=false);$("price").textContent=fmt(total);$("surcharge").textContent=fmt(extra);$("completion").textContent=t.day;
 quote={total,collateral:c,origin:$("origin").selectedOptions[0].text,destination:$("destination").selectedOptions[0].text,completion:$("completion").textContent,expiry:t.three};
 }
-document.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",render));
+fillLocations($("origin"), routesByOrigin.keys());
+updateDestinations();
+$("origin").addEventListener("input", () => {
+  updateDestinations();
+  render();
+});
+document.querySelectorAll("input,select:not(#origin)").forEach(e=>e.addEventListener("input",render));
 
 document.querySelectorAll("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
  const kind=button.dataset.copy;
