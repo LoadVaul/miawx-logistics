@@ -20,7 +20,7 @@ Para añadir una ruta con la fórmula existente, editá `routes.js`.
 1. Reutilizá los identificadores de estación de `locations`. Para una estación nueva, agregá un identificador estable y el nombre que el jugador debe usar en EVE Online.
 2. Agregá una entrada a `routes` con `from`, `to`, `bidirectional`, `iskPerM3` y `collateralRate`. Las tarifas se expresan en ISK por m³ y el porcentaje como fracción decimal (`0.01` equivale a 1 %).
 3. Usá `bidirectional: true` cuando la tarifa sea igual en ambos sentidos. Para tarifas distintas, usá dos entradas con `bidirectional: false`, una por sentido. Cada par ordenado debe aparecer una sola vez, contando el sentido inverso generado por las entradas bidireccionales.
-4. Conservá las tarifas de las rutas ajenas al pedido. Mantené Jita → Legion Penthouse como selección inicial salvo que se solicite cambiarla. El orden de las entradas determina los primeros valores de los selectores.
+4. Conservá las tarifas de las rutas ajenas al pedido. Mantené Jita → Ram Ranch como selección inicial salvo que se solicite cambiarla. El orden de las entradas determina los primeros valores de los selectores.
 
 La calculadora muestra destinos disponibles para el origen seleccionado y usa la ruta exacta para calcular `volumen × iskPerM3 + colateral × collateralRate`. Una combinación sin servicio debe quedar sin cotización. La cifra mostrada y el valor que se copia se redondean al ISK entero. Los límites vigentes por contrato son 340.000 m³ y 10.000 millones de ISK de colateral. La tarifa mínima de transporte es cero.
 
@@ -35,12 +35,7 @@ La calculadora muestra destinos disponibles para el origen seleccionado y usa la
 
 Para una prueba local, abrí `index.html` en un navegador desde una copia del repositorio con `routes.js` junto al archivo. Revisá la consola si la calculadora no se inicializa.
 
-Usá 10.000 m³ y 1.000 millones de ISK de colateral como caso de regresión para los dos sentidos de cada ruta:
-
-| Ruta | Tarifa | Recompensa esperada |
-| --- | --- | ---: |
-| Jita ↔ EIMJ-M - LEGION PENTHOUSE | 1.100 ISK/m³ + 1 % del colateral | 21.000.000 ISK |
-| Jita ↔ XZ-SKZ - Ram Ranch | 1.000 ISK/m³ + 1 % del colateral | 20.000.000 ISK |
+Usá 10.000 m³ y 1.000 millones de ISK de colateral como caso de regresión para Jita ↔ XZ-SKZ - Ram Ranch. La tarifa de 1.000 ISK/m³ más el 1 % del colateral debe dar una recompensa de 20.000.000 ISK en ambos sentidos.
 
 Si modificás la calculadora, verificá también que el selector filtre destinos, que las instrucciones correspondan al origen y al destino en ambos idiomas, y que la recompensa copiada coincida con la que se muestra. Si tocás la validación, probá cero, los límites exactos y los valores negativos, vacíos o por encima del límite.
 

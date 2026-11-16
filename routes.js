@@ -1,12 +1,10 @@
 const locations = {
   jita: "Jita IV – Moon 4 (Caldari Navy Assembly Plant)",
-  legion: "EIMJ-M - LEGION PENTHOUSE",
   ramRanch: "XZ-SKZ - Ram Ranch",
 };
 
 // Set bidirectional to false for a route with its own one-way tariff.
 const routes = [
-  { from: "jita", to: "legion", bidirectional: true, iskPerM3: 1100, collateralRate: 0.01 },
   { from: "jita", to: "ramRanch", bidirectional: true, iskPerM3: 1000, collateralRate: 0.01 },
 ];
 

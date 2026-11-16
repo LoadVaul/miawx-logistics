@@ -8,5 +8,4 @@ Elegí el origen y el destino, ingresá el volumen en m³ y el colateral en ISK,
 
 ## Rutas disponibles
 
-- Jita IV – Moon 4 (Caldari Navy Assembly Plant) ↔ EIMJ-M - LEGION PENTHOUSE
 - Jita IV – Moon 4 (Caldari Navy Assembly Plant) ↔ XZ-SKZ - Ram Ranch
