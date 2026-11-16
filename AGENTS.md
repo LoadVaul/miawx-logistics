@@ -8,7 +8,8 @@ Estas instrucciones aplican a todo el repositorio. Usá el contenido de `main` p
 
 ## Estructura
 
-- `index.html` contiene la interfaz, los estilos, las traducciones `en` y `es`, la selección de origen y destino, las validaciones y el cálculo de la recompensa.
+- `index.html` contiene la interfaz, las traducciones `en` y `es`, la selección de origen y destino, las validaciones y el cálculo de la recompensa.
+- `styles.css` contiene la identidad visual, la disposición y los estilos adaptables.
 - `routes.js` contiene el catálogo `locations` y `routes`, y construye `routesByOrigin`, el índice de rutas por origen y destino. `index.html` carga `./routes.js` antes de inicializar la calculadora.
 - El sitio se sirve desde la raíz de `main` mediante GitHub Pages. Actualmente usa HTML, CSS y JavaScript del navegador y se publica sin un paso de compilación propio.
 

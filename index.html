@@ -1,61 +1,122 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIAWX LOGISTICS DIV — EVE Online</title>
-<style>
-:root{color-scheme:dark;--bg:#080f1c;--panel:#121f32;--line:#2b4765;--blue:#4bbaff;--text:#e7f2ff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#173753,#080f1c 65%);color:var(--text);font:16px system-ui,Segoe UI,sans-serif;min-height:100vh}
-header,main,footer{max-width:1060px;margin:auto;padding:22px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
-.brand{font-weight:850;letter-spacing:.12em;color:var(--blue)}select,input,button{font:inherit}select,input{width:100%;padding:13px;background:#0b1728;border:1px solid #3b5977;border-radius:7px;color:white}
-button{border:0;border-radius:7px;background:#168bd2;color:white;padding:13px 20px;font-weight:700;cursor:pointer}button:hover{background:#2aa8f5}
-h1{font-size:clamp(2rem,5vw,3.6rem);margin:22px 0 5px}h2{font-size:1.25rem;margin:0 0 20px}.subtitle{color:#9db6cf}
-.hero{padding:35px 0 25px}.pill{display:inline-block;color:#8cddff;border:1px solid #34668b;border-radius:40px;padding:7px 13px;font-size:.8rem}
-.layout{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}.card{background:rgba(18,31,50,.95);border:1px solid var(--line);border-radius:13px;padding:25px;box-shadow:0 12px 30px #0003}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}label{display:block;color:#b8d2e9;font-size:.9rem;margin:0 0 7px}.field{margin-bottom:18px}
-.price{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;color:#68ceff;margin:10px 0 20px;overflow-wrap:anywhere}
-.detail{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #29405a}.detail span:last-child{text-align:right;font-weight:600;overflow-wrap:anywhere}
-.note{font-size:.88rem;color:#a8bfd6;line-height:1.55}.error{color:#ffadad;min-height:1.4em;font-size:.88rem}.section{margin-top:22px}
-footer{color:#829bb5;font-size:.8rem;text-align:center}.copy-inline{padding:7px 11px;font-size:.8rem;white-space:nowrap}.copy-value{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}.copy-value span{text-align:right}.copy-price{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:740px){.layout,.grid{grid-template-columns:1fr}header{padding:16px}main{padding:16px}.card{padding:18px}}
-.station-picker{display:flex;align-items:stretch;gap:8px}.station-picker select{min-width:0;flex:1}.station-copy{position:relative;flex:0 0 44px;min-height:44px;padding:0}
-.station-copy::before,.station-copy::after{content:"";position:absolute;width:11px;height:13px;border:1.5px solid currentColor;border-radius:2px;background:inherit}
-.station-copy::before{top:calc(50% - 9px);left:calc(50% - 3px)}
-.station-copy::after{top:calc(50% - 5px);left:calc(50% - 7px)}
-.station-copy[data-copied]::before{content:none}
-.station-copy[data-copied]::after{width:8px;height:14px;top:calc(50% - 9px);left:calc(50% - 4px);border-width:0 2px 2px 0;border-radius:0;background:transparent;transform:rotate(45deg)}
-.support-link{color:#8cddff;font-weight:700;text-underline-offset:.2em}
-</style></head><body>
-<header><div class="brand">MIAWX LOGISTICS DIV</div><div style="width:150px"><select id="language" aria-label="Language"><option value="en">en English</option><option value="es">🇪🇸 Español</option></select></div></header>
-<main><div class="hero"><span class="pill">EVE ONLINE · JUMP FREIGHTER</span><h1>MIAWX LOGISTICS DIV</h1><div class="subtitle" data-i="tagline">Professional Jump Freighter Services · Fast, Secure & Reliable Transportation</div></div>
-<div class="layout"><section class="card"><h2 data-i="calculator">Courier Price Calculator</h2>
-<div class="grid"><div class="field"><label for="origin" data-i="origin">Pickup location</label><div class="station-picker"><select id="origin"></select><button type="button" class="station-copy" data-copy="origin" data-copy-label="originCopyLabel" aria-label="Copy pickup station" title="Copy pickup station" disabled></button></div></div>
-<div class="field"><label for="destination" data-i="destination">Destination</label><div class="station-picker"><select id="destination"></select><button type="button" class="station-copy" data-copy="destination" data-copy-label="destinationCopyLabel" aria-label="Copy destination station" title="Copy destination station" disabled></button></div></div></div>
-<div class="grid"><div class="field"><label data-i="volume">Cargo volume (m³)</label><input id="volume" type="number" min="0" max="340000" step="1" value="100000"></div>
-<div class="field"><label data-i="collateral">Collateral (ISK)</label><input id="collateral" type="number" min="0" max="10000000000" step="1" value="5000000000"></div></div>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MIAWX LOGISTICS DIV — EVE Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600&display=swap">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="frame masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>MIAWX LOGISTICS DIV</div>
+    <select class="language" id="language" aria-label="Language / Idioma">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+  </header>
 
-<div class="error" id="error" role="alert"></div>
-<p class="note" data-i="limits">Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.</p>
-</section><section class="card"><h2 data-i="quote">Your shipping quote</h2><div class="subtitle" data-i="reward">Courier contract reward</div><div class="copy-price"><div class="price" id="price">—</div><button type="button" class="copy-inline" data-copy="reward" data-i="copyValue">Copy</button></div>
-<div class="detail"><span data-i="recipient">Contract to</span><span class="copy-value"><span>MIAWX LOGISTICS DIV</span><button type="button" class="copy-inline" data-copy="recipient" data-i="copyValue">Copy</button></span></div>
-<div class="detail"><span data-i="collateralLabel">Collateral</span><span class="copy-value"><span id="collateralDisplay">—</span><button type="button" class="copy-inline" data-copy="collateral" data-i="copyValue">Copy</button></span></div><div class="detail"><span data-i="contracttype">Contract type</span><span>Courier</span></div>
-<div class="detail"><span data-i="expiry">Contract expiration</span><span data-i="three">3 days</span></div>
-<div class="detail"><span data-i="completion">Time to complete</span><span id="completion">7 days</span></div>
-<div class="detail"><span data-i="rate">Rate per m³</span><span id="rate">—</span></div>
+  <main class="frame">
+    <div class="intro">
+      <h1 data-i="calculator">Courier price calculator</h1>
+      <p data-i="tagline">Jump Freighter transport in EVE Online</p>
+    </div>
 
-<div class="detail"><span data-i="transport">Transport fee</span><span class="copy-value"><span id="transport">—</span></span></div>
-<div class="detail"><span id="feeLabel">Collateral surcharge</span><span id="surcharge">—</span></div>
-<p class="note" id="instructions"></p></section></div>
-<section class="card section"><h2 data-i="terms">Service conditions</h2><p class="note" data-i="termsbody">Contract expiration is 3 days. Time to complete is 7 days. This website does not create contracts.</p></section>
-<section class="card section" aria-labelledby="support-title">
-  <h2 id="support-title" data-i="supportTitle">Support and custom routes</h2>
-  <p class="note" data-i="supportText">If you have a question, a problem with your shipment, or need a custom route, join our Discord server and open a ticket. For a custom quote, include the pickup location, destination, cargo volume, and collateral.</p>
-  <a class="support-link" href="https://discord.gg/Vx9AY24G4U" target="_blank" rel="noopener" data-i="supportLink">Join Discord to open a ticket</a>
-</section>
-</main><footer>MIAWX LOGISTICS DIV · Independent EVE Online courier service · Not affiliated with CCP Games</footer>
+    <div class="layout">
+      <div class="manifest">
+        <fieldset>
+          <legend data-i="routeHeading">Route</legend>
+          <div class="route-fields">
+            <div class="field route-field">
+              <label for="origin" data-i="origin">Pickup location</label>
+              <div class="station-picker">
+                <select id="origin"></select>
+                <button type="button" class="station-copy" data-copy="origin" data-copy-label="originCopyLabel" aria-label="Copy pickup station" title="Copy pickup station" disabled></button>
+              </div>
+            </div>
+            <div class="field route-field">
+              <label for="destination" data-i="destination">Destination</label>
+              <div class="station-picker">
+                <select id="destination"></select>
+                <button type="button" class="station-copy" data-copy="destination" data-copy-label="destinationCopyLabel" aria-label="Copy destination station" title="Copy destination station" disabled></button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="cargo-fields">
+          <legend data-i="cargoHeading">Cargo</legend>
+          <div class="cargo-grid">
+            <div class="field">
+              <label for="volume" data-i="volume">Cargo volume (m³)</label>
+              <input id="volume" type="number" min="0" max="340000" step="1" value="100000">
+            </div>
+            <div class="field">
+              <label for="collateral" data-i="collateral">Collateral (ISK)</label>
+              <input id="collateral" type="number" min="0" max="10000000000" step="1" value="5000000000">
+            </div>
+          </div>
+        </fieldset>
+
+        <p class="error" id="error" role="alert"></p>
+        <p class="note limits" data-i="limits">Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.</p>
+      </div>
+
+      <section class="quote-panel" aria-labelledby="quote-title">
+        <h2 id="quote-title" data-i="quote">Your shipping quote</h2>
+        <p class="reward-label" data-i="reward">Courier contract reward</p>
+        <div class="copy-price">
+          <p class="price" id="price" aria-live="polite">—</p>
+          <button type="button" class="copy-inline" data-copy="reward" data-i="copyValue">Copy</button>
+        </div>
+
+        <dl class="quote-details">
+          <div class="detail"><dt data-i="rate">Rate per m³</dt><dd id="rate">—</dd></div>
+          <div class="detail"><dt data-i="transport">Transport fee</dt><dd id="transport">—</dd></div>
+          <div class="detail"><dt id="feeLabel">Collateral surcharge</dt><dd id="surcharge">—</dd></div>
+          <div class="detail">
+            <dt data-i="collateralLabel">Collateral</dt>
+            <dd class="copy-value">
+              <span id="collateralDisplay">—</span>
+              <button type="button" class="copy-inline" data-copy="collateral" data-i="copyValue">Copy</button>
+            </dd>
+          </div>
+          <div class="detail">
+            <dt data-i="recipient">Contract to</dt>
+            <dd class="copy-value">
+              <span>MIAWX LOGISTICS DIV</span>
+              <button type="button" class="copy-inline" data-copy="recipient" data-i="copyValue">Copy</button>
+            </dd>
+          </div>
+          <div class="detail"><dt data-i="contracttype">Contract type</dt><dd>Courier</dd></div>
+          <div class="detail"><dt data-i="expiry">Contract expiration</dt><dd data-i="three">3 days</dd></div>
+          <div class="detail"><dt data-i="completion">Time to complete</dt><dd id="completion">7 days</dd></div>
+        </dl>
+        <p class="note instructions" id="instructions"></p>
+      </section>
+    </div>
+
+    <div class="resources">
+      <section aria-labelledby="terms-title">
+        <h2 id="terms-title" data-i="terms">Service conditions</h2>
+        <p class="note" data-i="termsbody">Contract expiration is 3 days. Time to complete is 7 days. This website does not create contracts.</p>
+      </section>
+      <section aria-labelledby="support-title">
+        <h2 id="support-title" data-i="supportTitle">Support and custom routes</h2>
+        <p class="note" data-i="supportText">If you have a question, a problem with your shipment, or need a custom route, join our Discord server and open a ticket. For a custom quote, include the pickup location, destination, cargo volume, and collateral.</p>
+        <a class="support-link" href="https://discord.gg/Vx9AY24G4U" target="_blank" rel="noopener" data-i="supportLink">Join Discord to open a ticket</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="frame">Independent EVE Online courier service · Not affiliated with CCP Games</footer>
 <script src="./routes.js"></script>
 <script>
 const dict={
-en:{copyValue:"Copy",originCopyLabel:"Copy pickup station",destinationCopyLabel:"Copy destination station",collateralLabel:"Collateral",enCopyDone:"Copied!",supportTitle:"Support and custom routes",supportText:"If you have a question, a problem with your shipment, or need a custom route, join our Discord server and open a ticket. For a custom quote, include the pickup location, destination, cargo volume, and collateral.",supportLink:"Join Discord to open a ticket",availability:"Courier availability",online:"● Accepting contracts",offline:"● Service temporarily unavailable — please do not send contracts.",pause:"Pause courier service",resume:"Resume courier service",ownercontrol:"Owner: temporarily suspend service",adminnote:"Owner control (local preview only): changes are saved in this browser, not shared with visitors on other devices. A published website needs a private admin login and shared storage to update the public status.",tagline:"Professional Jump Freighter Services · Fast, Secure & Reliable Transportation",calculator:"Courier Price Calculator",origin:"Pickup location",destination:"Destination",volume:"Cargo volume (m³)",collateral:"Collateral (ISK)",service:"Delivery service",limits:"Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.",quote:"Your shipping quote",reward:"Courier contract reward",recipient:"Contract to",contracttype:"Contract type",expiry:"Contract expiration",three:"3 days",completion:"Time to complete",fee:"Collateral surcharge",rate:"Rate per m³",minimum:"Minimum transport fee",transport:"Transport fee",copy:"Copy contract details",instructions:"Create the courier contract inside EVE Online, addressed to MIAWX LOGISTICS DIV. Pickup: {from}. Delivery: {to}. Delivery time starts when the contract is accepted.",terms:"Service conditions",termsbody:"The rate depends on the route. Contract expiration is 3 days. Time to complete in EVE Online is 7 days. This website does not create contracts.",routeUnavailable:"This route is unavailable.",invalid:"Enter valid non-negative values.",over:"Maximum: 340,000 m³ and 10 billion ISK collateral.",copied:"Contract details copied!",standard:"Standard — 5–7 days",express:"Express — 1–2 days",rush:"Rush — less than 12 hours",day:"7 days",hour:"7 days"},
-es:{copyValue:"Copiar",originCopyLabel:"Copiar estación de recogida",destinationCopyLabel:"Copiar estación de destino",collateralLabel:"Collateral",enCopyDone:"¡Copiado!",supportTitle:"Soporte y rutas personalizadas",supportText:"Si tenés dudas, un problema con tu envío o necesitás una ruta personalizada, entrá a nuestro servidor de Discord y abrí un ticket. Para pedir una cotización, indicá el origen, el destino, el volumen de carga y el colateral.",supportLink:"Entrar a Discord para abrir un ticket",availability:"Disponibilidad del courier",online:"● Aceptando contratos",offline:"● Servicio temporalmente no disponible. No envíes contratos.",pause:"Pausar servicio de courier",resume:"Reactivar servicio de courier",ownercontrol:"Propietario: suspender temporalmente el servicio",adminnote:"Control del propietario (solo prueba local): los cambios se guardan en este navegador y no se comparten con otros visitantes. La web publicada necesitará acceso privado de administrador y almacenamiento compartido para actualizar el estado público.",tagline:"Servicios profesionales de Jump Freighter · Transporte rápido, seguro y fiable",calculator:"Calculadora de tarifas",origin:"Punto de recogida",destination:"Destino",volume:"Volumen de carga (m³)",collateral:"Collateral (ISK)",service:"Modalidad de entrega",limits:"Límites por contrato: 340.000 m³ y 10.000 millones de ISK de collateral. No hay tarifa mínima de transporte.",quote:"Presupuesto de transporte",reward:"Recompensa del contrato",recipient:"Contrato a nombre de",contracttype:"Tipo de contrato",expiry:"Caducidad del contrato",three:"3 días",completion:"Plazo de entrega",fee:"Recargo por collateral",rate:"Precio por m³",minimum:"Tarifa mínima de transporte",transport:"Precio del transporte",copy:"Copiar datos del contrato",instructions:"Crea el contrato de tipo Courier dentro de EVE Online a nombre de MIAWX LOGISTICS DIV. Recogida: {from}. Entrega: {to}. El plazo de entrega comienza al aceptar el contrato.",terms:"Condiciones del servicio",termsbody:"La tarifa depende de la ruta. El contrato caduca en 3 días. El plazo para completarlo en EVE Online es de 7 días. Esta web no crea contratos.",routeUnavailable:"Esta ruta no está disponible.",invalid:"Introduce valores válidos no negativos.",over:"Máximo: 340.000 m³ y 10.000 millones de ISK de collateral.",copied:"¡Datos del contrato copiados!",standard:"Estándar — 5–7 días",express:"Exprés — 1–2 días",rush:"Rush — menos de 12 horas",day:"7 días",hour:"7 días"}
+en:{copyValue:"Copy",originCopyLabel:"Copy pickup station",destinationCopyLabel:"Copy destination station",collateralLabel:"Collateral",enCopyDone:"Copied!",supportTitle:"Support and custom routes",supportText:"If you have a question, a problem with your shipment, or need a custom route, join our Discord server and open a ticket. For a custom quote, include the pickup location, destination, cargo volume, and collateral.",supportLink:"Join Discord to open a ticket",availability:"Courier availability",online:"● Accepting contracts",offline:"● Service temporarily unavailable — please do not send contracts.",pause:"Pause courier service",resume:"Resume courier service",ownercontrol:"Owner: temporarily suspend service",adminnote:"Owner control (local preview only): changes are saved in this browser, not shared with visitors on other devices. A published website needs a private admin login and shared storage to update the public status.",tagline:"Jump Freighter transport in EVE Online",calculator:"Courier price calculator",routeHeading:"Route",cargoHeading:"Cargo",origin:"Pickup location",destination:"Destination",volume:"Cargo volume (m³)",collateral:"Collateral (ISK)",service:"Delivery service",limits:"Limits per contract: 340,000 m³ and 10 billion ISK collateral. No minimum transport fee applies.",quote:"Your shipping quote",reward:"Courier contract reward",recipient:"Contract to",contracttype:"Contract type",expiry:"Contract expiration",three:"3 days",completion:"Time to complete",fee:"Collateral surcharge",rate:"Rate per m³",minimum:"Minimum transport fee",transport:"Transport fee",copy:"Copy contract details",instructions:"Create the courier contract inside EVE Online, addressed to MIAWX LOGISTICS DIV. Pickup: {from}. Delivery: {to}. Delivery time starts when the contract is accepted.",terms:"Service conditions",termsbody:"The rate depends on the route. Contract expiration is 3 days. Time to complete in EVE Online is 7 days. This website does not create contracts.",routeUnavailable:"This route is unavailable.",invalid:"Enter valid non-negative values.",over:"Maximum: 340,000 m³ and 10 billion ISK collateral.",copied:"Contract details copied!",standard:"Standard — 5–7 days",express:"Express — 1–2 days",rush:"Rush — less than 12 hours",day:"7 days",hour:"7 days"},
+es:{copyValue:"Copiar",originCopyLabel:"Copiar estación de recogida",destinationCopyLabel:"Copiar estación de destino",collateralLabel:"Collateral",enCopyDone:"¡Copiado!",supportTitle:"Soporte y rutas personalizadas",supportText:"Si tenés dudas, un problema con tu envío o necesitás una ruta personalizada, entrá a nuestro servidor de Discord y abrí un ticket. Para pedir una cotización, indicá el origen, el destino, el volumen de carga y el colateral.",supportLink:"Entrar a Discord para abrir un ticket",availability:"Disponibilidad del courier",online:"● Aceptando contratos",offline:"● Servicio temporalmente no disponible. No envíes contratos.",pause:"Pausar servicio de courier",resume:"Reactivar servicio de courier",ownercontrol:"Propietario: suspender temporalmente el servicio",adminnote:"Control del propietario (solo prueba local): los cambios se guardan en este navegador y no se comparten con otros visitantes. La web publicada necesitará acceso privado de administrador y almacenamiento compartido para actualizar el estado público.",tagline:"Transporte con Jump Freighter en EVE Online",calculator:"Calculadora de tarifas",routeHeading:"Ruta",cargoHeading:"Carga",origin:"Punto de recogida",destination:"Destino",volume:"Volumen de carga (m³)",collateral:"Collateral (ISK)",service:"Modalidad de entrega",limits:"Límites por contrato: 340.000 m³ y 10.000 millones de ISK de collateral. No hay tarifa mínima de transporte.",quote:"Presupuesto de transporte",reward:"Recompensa del contrato",recipient:"Contrato a nombre de",contracttype:"Tipo de contrato",expiry:"Caducidad del contrato",three:"3 días",completion:"Plazo de entrega",fee:"Recargo por collateral",rate:"Precio por m³",minimum:"Tarifa mínima de transporte",transport:"Precio del transporte",copy:"Copiar datos del contrato",instructions:"Crea el contrato de tipo Courier dentro de EVE Online a nombre de MIAWX LOGISTICS DIV. Recogida: {from}. Entrega: {to}. El plazo de entrega comienza al aceptar el contrato.",terms:"Condiciones del servicio",termsbody:"La tarifa depende de la ruta. El contrato caduca en 3 días. El plazo para completarlo en EVE Online es de 7 días. Esta web no crea contratos.",routeUnavailable:"Esta ruta no está disponible.",invalid:"Introduce valores válidos no negativos.",over:"Máximo: 340.000 m³ y 10.000 millones de ISK de collateral.",copied:"¡Datos del contrato copiados!",standard:"Estándar — 5–7 días",express:"Exprés — 1–2 días",rush:"Rush — menos de 12 horas",day:"7 días",hour:"7 días"}
 };
 
 const $=id=>document.getElementById(id);const fmt=n=>Math.round(n).toLocaleString("en-US")+" ISK";let quote=null;
