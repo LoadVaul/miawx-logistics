@@ -16,13 +16,18 @@ h1{font-size:clamp(2rem,5vw,3.6rem);margin:22px 0 5px}h2{font-size:1.25rem;margi
 .note{font-size:.88rem;color:#a8bfd6;line-height:1.55}.error{color:#ffadad;min-height:1.4em;font-size:.88rem}.section{margin-top:22px}
 footer{color:#829bb5;font-size:.8rem;text-align:center}.copy-inline{padding:7px 11px;font-size:.8rem;white-space:nowrap}.copy-value{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}.copy-value span{text-align:right}.copy-price{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:740px){.layout,.grid{grid-template-columns:1fr}header{padding:16px}main{padding:16px}.card{padding:18px}}
-.station-picker{display:flex;align-items:stretch;gap:8px}.station-picker select{min-width:0;flex:1}.station-picker button{flex:none}
+.station-picker{display:flex;align-items:stretch;gap:8px}.station-picker select{min-width:0;flex:1}.station-copy{position:relative;flex:0 0 44px;min-height:44px;padding:0}
+.station-copy::before,.station-copy::after{content:"";position:absolute;width:11px;height:13px;border:1.5px solid currentColor;border-radius:2px;background:inherit}
+.station-copy::before{top:calc(50% - 9px);left:calc(50% - 3px)}
+.station-copy::after{top:calc(50% - 5px);left:calc(50% - 7px)}
+.station-copy[data-copied]::before{content:none}
+.station-copy[data-copied]::after{width:8px;height:14px;top:calc(50% - 9px);left:calc(50% - 4px);border-width:0 2px 2px 0;border-radius:0;background:transparent;transform:rotate(45deg)}
 </style></head><body>
 <header><div class="brand">MIAWX LOGISTICS DIV</div><div style="width:150px"><select id="language" aria-label="Language"><option value="en">en English</option><option value="es">🇪🇸 Español</option></select></div></header>
 <main><div class="hero"><span class="pill">EVE ONLINE · JUMP FREIGHTER</span><h1>MIAWX LOGISTICS DIV</h1><div class="subtitle" data-i="tagline">Professional Jump Freighter Services · Fast, Secure & Reliable Transportation</div></div>
 <div class="layout"><section class="card"><h2 data-i="calculator">Courier Price Calculator</h2>
-<div class="grid"><div class="field"><label for="origin" data-i="origin">Pickup location</label><div class="station-picker"><select id="origin"></select><button type="button" class="copy-inline" data-copy="origin" data-copy-label="originCopyLabel" data-i="copyValue" aria-label="Copy pickup station" disabled>Copy</button></div></div>
-<div class="field"><label for="destination" data-i="destination">Destination</label><div class="station-picker"><select id="destination"></select><button type="button" class="copy-inline" data-copy="destination" data-copy-label="destinationCopyLabel" data-i="copyValue" aria-label="Copy destination station" disabled>Copy</button></div></div></div>
+<div class="grid"><div class="field"><label for="origin" data-i="origin">Pickup location</label><div class="station-picker"><select id="origin"></select><button type="button" class="station-copy" data-copy="origin" data-copy-label="originCopyLabel" aria-label="Copy pickup station" title="Copy pickup station" disabled></button></div></div>
+<div class="field"><label for="destination" data-i="destination">Destination</label><div class="station-picker"><select id="destination"></select><button type="button" class="station-copy" data-copy="destination" data-copy-label="destinationCopyLabel" aria-label="Copy destination station" title="Copy destination station" disabled></button></div></div></div>
 <div class="grid"><div class="field"><label data-i="volume">Cargo volume (m³)</label><input id="volume" type="number" min="0" max="340000" step="1" value="100000"></div>
 <div class="field"><label data-i="collateral">Collateral (ISK)</label><input id="collateral" type="number" min="0" max="10000000000" step="1" value="5000000000"></div></div>
 
@@ -66,7 +71,9 @@ const from = $("origin").value;
 const to = $("destination").value;
 const route = routesByOrigin.get(from)?.get(to);
 for (const button of document.querySelectorAll("[data-copy-label]")) {
-  button.setAttribute("aria-label", t[button.dataset.copyLabel]);
+  const label = t[button.dataset.copyLabel];
+  button.setAttribute("aria-label", label);
+  button.title = label;
   button.disabled = !locations[$(button.dataset.copy).value];
 }
 $("instructions").textContent = route ? t.instructions
@@ -113,6 +120,11 @@ document.querySelectorAll("[data-copy]").forEach(button=>button.addEventListener
  const value = values[kind];
  if (!value) return;
  try{await navigator.clipboard.writeText(value)}catch(e){window.prompt("Copy:",value);return}
+ if (button.hasAttribute("data-copy-label")) {
+  button.setAttribute("data-copied", "");
+  setTimeout(() => button.removeAttribute("data-copied"), 1400);
+  return;
+ }
  button.textContent=dict[$("language").value].enCopyDone;
  setTimeout(()=>{button.textContent=dict[$("language").value].copyValue},1400);
 }));
